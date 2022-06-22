@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UserProfileDto {
+    userId: string;
     firstNameTH: string;
     lastNameTH: string;
     firstNameEN: string;

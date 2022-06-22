@@ -58,6 +58,7 @@ export class UserService {
             var ObjectId = require('mongoose').Types.ObjectId;
             const userProfile = await this.userProfileModel.findById(ObjectId(id));
             const user = new UserProfileDto()
+            user.userId = userProfile.id;
             user.firstNameTH = userProfile.firstname_th;
             user.lastNameTH = userProfile.lastname_th;
             user.firstNameEN = userProfile.firstname_en;
@@ -75,12 +76,11 @@ export class UserService {
             user.createdBy = userProfile.created_by;
             user.createdDate = userProfile.created_date;
             user.lastestUpdatedDate = userProfile.updated_date;
+            return user;
 
         } catch (err) {
             throw new HttpException('NotFound', HttpStatus.NOT_FOUND);
         }
-
-        return this.userProfileModel.findById(ObjectId(id));
     }
 
 
