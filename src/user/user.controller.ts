@@ -11,14 +11,14 @@ export class UserController {
     constructor(private userService: UserService) {
 
     }
-    
+
     @Get()
     getUserAll(@Query() paginationQuery: PaginationQuery) {
         console.log(paginationQuery);
         return this.userService.findAll(paginationQuery);
     }
 
-    @Get('/mangement')
+    @Get('/management')
     getMangement(@Query() paginationQuery: PaginationQuery) {
         console.log(paginationQuery);
         return this.userService.findUserManagement(paginationQuery);
