@@ -1,10 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { SchemaTypes, Types, Document } from 'mongoose';
-
 export type UserProfileDocument = UserProfile & Document;
 
-@Schema({ versionKey: false })
+@Schema({
+    versionKey: false
+})
+
 export class UserProfile {
+
     @Prop()
     firstname_th: string;
     @Prop()
@@ -32,11 +35,15 @@ export class UserProfile {
     @Prop()
     username: string;
     @Prop()
-    logAccess: string[];
+    log_access: string[];
     @Prop()
-    createDate: string;
+    remark: string;
     @Prop()
-    createdBy: string;
+    created_date: string;
+    @Prop()
+    updated_date: string
+    @Prop()
+    created_by: string;
 
 }
 

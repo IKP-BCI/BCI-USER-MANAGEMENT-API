@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req } from '@nestjs/common';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiParam, ApiProperty } from '@nestjs/swagger';
 import { QueryOptions } from 'mongoose';
 import { CreateUserDto } from 'src/dto/createUser.dto';
 import { UserInformationDTO } from 'src/dto/userInformation.dto';
@@ -35,29 +35,24 @@ export class UserController {
         return this.userService.create(userDto);
     }
 
-    // @Get(':id')
-    // getUserById(@Param() id: string) {
+    @Get(':id')
+    @ApiParam({
+        name: 'id',
+        description: 'Gets the Action id',
+    })
+    getUserById(@Param() id: string) {
+        return this.userService.findById(id);
+    }
+
+    // @Delete(':id')
+    // deleteUser(@Param() id: string) {
     //     // return this.userService.create(userDto);
     // }
 
-    @Delete(':id')
-    deleteUser(@Param() id: string) {
-        // return this.userService.create(userDto);
-    }
-
-    @Put(':id')
-    editUser(@Param() id: string) {
-        // return this.userService.create(userDto);
-    }
-
-
-
-    // create(@Res() res: Response) {
-    //     res.status(HttpStatus.CREATED).send();
+    // @Put(':id')
+    // editUser(@Param() id: string) {
+    //     // return this.userService.create(userDto);
     // }
 
-    @Get(':id')
-    getUserById(@Param() id: string) {
-        return this.userService.findById(Number(id));
-    }
+
 }
