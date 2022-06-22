@@ -1,0 +1,56 @@
+# version: '3'
+
+# services:
+#   bci-profile-api:
+#     build: .
+#     image: kantaponikp/bci-user-management-api
+#     environment:
+#       - HOST=0.0.0.0
+#       - PORT=30001
+#     ports:
+#       - 30001:30001
+#     restart: always
+#     networks:
+#       - bci
+
+# networks:
+#   bci:
+
+# volumes:
+#   keystore:
+
+
+version: '3.3'
+
+services:
+  bci-user-management-api:
+    build: .
+    image: kantaponikp/bci-user-management-api:0.0.1
+    depends_on:
+      - mongodb
+    ports:
+      - 31001:31001
+    networks:
+      - bci-network
+    restart: always
+
+  mongodb:
+    image : mongo:latest
+    container_name: mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=bci_user
+      - MONGO_INITDB_ROOT_PASSWORD=Passw0rd
+      - MONGO_INITDB_DATABASE=bci_db
+      - MONGO_INITDB_PORT=27007
+      - MONGO_INITDB_HOST=157.245.148.217
+    volumes:
+      - ./database:/data/db
+    ports:
+      - 27007:27007
+    networks:
+      - bci-network
+    
+  networks:
+    bci-network:
+      driver: bridge
+
