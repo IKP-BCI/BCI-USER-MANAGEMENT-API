@@ -35,10 +35,10 @@ export class UserController {
         return this.userService.create(userDto);
     }
 
-    @Get(':id')
-    getUserById(@Param() id: string) {
-        // return this.userService.create(userDto);
-    }
+    // @Get(':id')
+    // getUserById(@Param() id: string) {
+    //     // return this.userService.create(userDto);
+    // }
 
     @Delete(':id')
     deleteUser(@Param() id: string) {
@@ -56,8 +56,8 @@ export class UserController {
     //     res.status(HttpStatus.CREATED).send();
     // }
 
-    // @Get(':id')
-    // getUserById(@Param() id: string) {
-    //     return this.userService.findById(Number(id));
-    // }
+    @Get(':id')
+    getUserById(@Param() id: string) {
+        return this.userService.findById(Number(id));
+    }
 }

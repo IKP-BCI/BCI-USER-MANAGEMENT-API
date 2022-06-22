@@ -5,12 +5,13 @@ import { CreateUserDto as CreateUserDto } from 'src/dto/createUser.dto';
 import { UserDto } from 'src/dto/user.dto';
 import { GeneralInformation, PotentialUserInformation, UserInformationDTO } from 'src/dto/userInformation.dto';
 import { PaginationQuery } from 'src/query/paginationQuery';
+import { GetUserProfile, GetUserProfileDocument } from 'src/schemas/getUserProfile.schema';
 import { User, UserDocument } from 'src/schemas/user.schema';
 import { UserProfile, UserProfileDocument } from 'src/schemas/userProfile.schema';
 
 @Injectable()
 export class UserService {
-    constructor(@InjectModel(UserProfile.name) private userProfileModel: Model<UserProfileDocument>,
+    constructor(@InjectModel(UserProfile.name) private userProfileModel: Model<UserProfileDocument>,@InjectModel(UserProfile.name) private getUserProfileModel: Model<GetUserProfileDocument>,
     @InjectModel(User.name) private userModel: Model<UserDocument>
     ) { }
 
@@ -33,10 +34,10 @@ export class UserService {
         userProfile.createDate = new Date().toISOString();
         userProfile.createdBy = "";
         const userProfileModelCreated = new this.userProfileModel(userProfile).save();
-        console.log(userProfileModelCreated);
-        console.log((await userProfileModelCreated)._id);
-        console.log((await userProfileModelCreated).id);
-        const userId = (await userProfileModelCreated)._id;
+        // console.log(userProfileModelCreated);
+        // console.log((await userProfileModelCreated)._id);
+        // console.log((await userProfileModelCreated).id);
+        // const userId = (await userProfileModelCreated)._id;
         // const user = new User()
         // user.firmName = "";
         // user.username = userDto.firstNameEN;
@@ -63,15 +64,16 @@ export class UserService {
     //     return this.users;
     // }
 
-    // async findById(id: number) {
-    //     return this.users.find((u) => u.id === id);
-    // }
+    async findById(id: number) {
+        // return this.userProfileModel.find((u) => u._id === id.toString());
+        return "";
+    }
 
 
     async findUserManagement(options: PaginationQuery) {
         const total = await this.userProfileModel.count();
         const totalPage = Math.ceil(total/options.limit);
-        const userProfileList: UserProfile[]  = await this.userProfileModel
+        const getUserProfileModel: GetUserProfile[]  = await this.userProfileModel
         .find()
         // .where({firmName: options.firmName, username: options.username})
         .skip((options.page-1)*options.limit)
@@ -79,7 +81,7 @@ export class UserService {
         .exec();
 
         const results = [];
-        for(var userProfile of userProfileList){
+        for(var userProfile of getUserProfileModel){
             const user = new UserDto()
             // console.log(userProfile._id);
             // console.log(userProfile.id);
