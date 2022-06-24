@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateUserDto as CreateUserDto } from 'src/dto/createUser.dto';
+import { EditUserDto } from 'src/dto/editUser.dto';
 import { UserDto } from 'src/dto/user.dto';
 import { UserProfileDto } from 'src/dto/userProfile.dto';
 import { PaginationQuery } from 'src/query/paginationQuery';
@@ -37,6 +38,29 @@ export class UserService {
         const userProfileModelCreated = new this.userProfileModel(userProfile).save();
 
         return userProfileModelCreated;
+    }
+
+    async update(id: string, editUser: EditUserDto){
+        
+        const userProfileUpdate = new UserProfile()
+        userProfileUpdate.firstname_th = editUser.firstNameTH;
+        userProfileUpdate.lastname_th = editUser.lastNameTH;
+        userProfileUpdate.firstname_en = editUser.firstNameEN;
+        userProfileUpdate.lastname_en = editUser.lastNameEN;
+        userProfileUpdate.position = editUser.position;
+        userProfileUpdate.email = editUser.email;
+        userProfileUpdate.mobile_no = editUser.mobileNo;
+        userProfileUpdate.phone_contact = editUser.phoneContact;
+        userProfileUpdate.ext = editUser.ext;
+        userProfileUpdate.work_status = editUser.workStatus;
+        userProfileUpdate.role = editUser.role;
+        userProfileUpdate.profile_picture = editUser.profilePicture;
+        userProfileUpdate.username = editUser.email;
+        userProfileUpdate.remark = editUser.remark;
+        // userProfileUpdate.log_access = [];
+        userProfileUpdate.updated_date = new Date().toISOString();
+        var ObjectId = require('mongoose').Types.ObjectId;
+        const userProfile = await this.userProfileModel.findByIdAndUpdate(ObjectId(id), userProfileUpdate);
     }
 
     async findAll(options: PaginationQuery) {
