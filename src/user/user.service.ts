@@ -91,6 +91,7 @@ export class UserService {
             user.email = userProfile.email;
             user.mobileNo = userProfile.mobile_no;
             user.phoneContact = userProfile.phone_contact;
+            user.ext = userProfile.ext;
             user.workStatus = userProfile.work_status;
             user.role = userProfile.role;
             user.profilePicture = userProfile.profile_picture;
