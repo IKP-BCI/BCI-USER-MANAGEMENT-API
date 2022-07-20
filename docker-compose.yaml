@@ -20,37 +20,37 @@
 #   keystore:
 
 
-version: '3.3'
+# version: '3.3'
 
-services:
-  bci-user-management-api:
-    build: .
-    image: kantaponikp/bci-user-management-api:0.0.1
-    depends_on:
-      - mongodb
-    ports:
-      - 31001:31001
-    networks:
-      - bci-network
-    restart: always
+# services:
+#   bci-user-management-api:
+#     build: .
+#     image: kantaponikp/bci-user-management-api:0.0.1
+#     depends_on:
+#       - mongodb
+#     ports:
+#       - 31001:31001
+#     networks:
+#       - bci-network
+#     restart: always
 
-  mongodb:
-    image : mongo:latest
-    container_name: mongodb
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=bci_user
-      - MONGO_INITDB_ROOT_PASSWORD=Passw0rd
-      - MONGO_INITDB_DATABASE=bci_db
-      - MONGO_INITDB_PORT=27007
-      - MONGO_INITDB_HOST=157.245.148.217
-    volumes:
-      - ./database:/data/db
-    ports:
-      - 27007:27007
-    networks:
-      - bci-network
+#   mongodb:
+#     image : mongo:latest
+#     container_name: mongodb
+#     environment:
+#       - MONGO_INITDB_ROOT_USERNAME=bci_user
+#       - MONGO_INITDB_ROOT_PASSWORD=Passw0rd
+#       - MONGO_INITDB_DATABASE=bci_db
+#       - MONGO_INITDB_PORT=27007
+#       - MONGO_INITDB_HOST=157.245.148.217
+#     volumes:
+#       - ./database:/data/db
+#     ports:
+#       - 27007:27007
+#     networks:
+#       - bci-network
     
-  networks:
-    bci-network:
-      driver: bridge
+#   networks:
+#     bci-network:
+#       driver: bridge
 
