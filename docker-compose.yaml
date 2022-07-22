@@ -2,6 +2,6 @@ version: '2'
 
 services:
   bci-user-management-api:
-    image: palaphon/bci-user-management-api:0.0.1
+    image: palaphon/bci-user-management-api:0.0.2
     ports:
       - 3001:3001
